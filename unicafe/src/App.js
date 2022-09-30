@@ -56,7 +56,7 @@ const App = () => {
       <Button handleClick={() => setGood(good + 1)} text={"Good"} />
       <Button handleClick={() => setNormal(normal + 1)} text={"Normal"} />
       <Button handleClick={() => setBad(bad + 1)} text={"Bad"} />
-      <Statistics stats={stats} />
+      <Statistics stats={stats} total={totalClicks()} />
 
     </div>
   )
@@ -70,18 +70,27 @@ const Button = ({ text, handleClick }) => (<div style={{display: "inline"}}><but
 
 const Statistics = (props) => {
   console.log(props);
-  console.log(props.stats.counts[0].name);
-  return (
-    <div>
-      <DisplayHeading text={props.stats.header} />
-      <DisplayCount text={props.stats.counts[0].name} count={props.stats.counts[0].count} />
-      <DisplayCount text={props.stats.counts[1].name} count={props.stats.counts[1].count} />
-      <DisplayCount text={props.stats.counts[2].name} count={props.stats.counts[2].count} />
-      <DisplayCount text={props.stats.counts[3].name} count={props.stats.counts[3].count} />
-      <DisplayCount text={props.stats.counts[4].name} count={props.stats.counts[4].count} />
-      <DisplayCount text={props.stats.counts[5].name} count={props.stats.counts[5].count} />
-    </div>
-  )
+  if (props.total > 0) {
+    return (
+      <div>
+        <DisplayHeading text={props.stats.header} />
+        <DisplayCount text={props.stats.counts[0].name} count={props.stats.counts[0].count} />
+        <DisplayCount text={props.stats.counts[1].name} count={props.stats.counts[1].count} />
+        <DisplayCount text={props.stats.counts[2].name} count={props.stats.counts[2].count} />
+        <DisplayCount text={props.stats.counts[3].name} count={props.stats.counts[3].count} />
+        <DisplayCount text={props.stats.counts[4].name} count={props.stats.counts[4].count} />
+        <DisplayCount text={props.stats.counts[5].name} count={props.stats.counts[5].count} />
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <DisplayHeading text={props.stats.header} />
+        <div>No Feedback Given...</div>
+      </div>
+    )
+  }
+
 }
 
 export default App;
