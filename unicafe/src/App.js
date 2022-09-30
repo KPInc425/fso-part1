@@ -6,6 +6,18 @@ const App = () => {
   const [normal, setNormal] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const totalClicks = () => {
+    return good + normal + bad;
+  }
+
+  const avgScore = () => {
+    return ((good * 1) + (bad * -1)) / totalClicks();
+  }
+
+  const posFeedback = () => {
+    return ((good / totalClicks()) * 100).toFixed(2);
+  }
+
   return (
     <div>
       <DisplayHeading text={"Give Feedback"} />
@@ -16,6 +28,9 @@ const App = () => {
       <DisplayCount text={"Good Count"} count={good} />
       <DisplayCount text={"Normal Count"} count={normal} />
       <DisplayCount text={"Bad Count"} count={bad} />
+      <DisplayCount text={"Total Count"} count={totalClicks()} />
+      <DisplayCount text={"Avg Score"} count={avgScore()} />
+      <DisplayCount text={"Positive Feedback"} count={`${posFeedback()}%`} />
     </div>
   )
 }
