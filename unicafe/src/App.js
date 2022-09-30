@@ -23,27 +23,27 @@ const App = () => {
     counts: [
       {
         name: "Good Count",
-        count: good,
+        value: good,
       },
       {
         name: "Normal Count",
-        count: normal,
+        value: normal,
       },
       {
         name: "Bad Count",
-        count: bad,
+        value: bad,
       },
       {
         name: "Total Count",
-        count: totalClicks(),
+        value: totalClicks(),
       },
       {
-        name: "Avg Count",
-        count: avgScore() || 0,
+        name: "Avg Score",
+        value: avgScore() || 0,
       },
       {
         name: "Positive Feedback",
-        count: `${posFeedback()}%`,
+        value: `${posFeedback()}%`,
       },
     ]
   }
@@ -64,7 +64,7 @@ const App = () => {
 
 const DisplayHeading = ({ text }) => (<div><h1>{text}</h1></div>)
 
-const DisplayCount = ({ text, count }) => (<div><p>{text}: {count}</p></div>)
+const StatisticLine = ({ text, value }) => (<div><p>{text}: {value}</p></div>)
 
 const Button = ({ text, handleClick }) => (<div style={{display: "inline"}}><button onClick={handleClick}>{text}</button></div>)
 
@@ -74,12 +74,12 @@ const Statistics = (props) => {
     return (
       <div>
         <DisplayHeading text={props.stats.header} />
-        <DisplayCount text={props.stats.counts[0].name} count={props.stats.counts[0].count} />
-        <DisplayCount text={props.stats.counts[1].name} count={props.stats.counts[1].count} />
-        <DisplayCount text={props.stats.counts[2].name} count={props.stats.counts[2].count} />
-        <DisplayCount text={props.stats.counts[3].name} count={props.stats.counts[3].count} />
-        <DisplayCount text={props.stats.counts[4].name} count={props.stats.counts[4].count} />
-        <DisplayCount text={props.stats.counts[5].name} count={props.stats.counts[5].count} />
+        <StatisticLine text={props.stats.counts[0].name} value={props.stats.counts[0].value} />
+        <StatisticLine text={props.stats.counts[1].name} value={props.stats.counts[1].value} />
+        <StatisticLine text={props.stats.counts[2].name} value={props.stats.counts[2].value} />
+        <StatisticLine text={props.stats.counts[3].name} value={props.stats.counts[3].value} />
+        <StatisticLine text={props.stats.counts[4].name} value={props.stats.counts[4].value} />
+        <StatisticLine text={props.stats.counts[5].name} value={props.stats.counts[5].value} />
       </div>
     )
   } else {
