@@ -64,22 +64,26 @@ const App = () => {
 
 const DisplayHeading = ({ text }) => (<div><h1>{text}</h1></div>)
 
-const StatisticLine = ({ text, value }) => (<div><p>{text}: {value}</p></div>)
+const StatisticLine = ({ text, value }) => (<tr><td>{text}</td><td>{value}</td></tr>)
 
 const Button = ({ text, handleClick }) => (<div style={{display: "inline"}}><button onClick={handleClick}>{text}</button></div>)
 
 const Statistics = (props) => {
-  console.log(props);
   if (props.total > 0) {
     return (
       <div>
         <DisplayHeading text={props.stats.header} />
-        <StatisticLine text={props.stats.counts[0].name} value={props.stats.counts[0].value} />
-        <StatisticLine text={props.stats.counts[1].name} value={props.stats.counts[1].value} />
-        <StatisticLine text={props.stats.counts[2].name} value={props.stats.counts[2].value} />
-        <StatisticLine text={props.stats.counts[3].name} value={props.stats.counts[3].value} />
-        <StatisticLine text={props.stats.counts[4].name} value={props.stats.counts[4].value} />
-        <StatisticLine text={props.stats.counts[5].name} value={props.stats.counts[5].value} />
+        <table>
+          <tbody>
+            <StatisticLine text={props.stats.counts[0].name} value={props.stats.counts[0].value} />
+            <StatisticLine text={props.stats.counts[1].name} value={props.stats.counts[1].value} />
+            <StatisticLine text={props.stats.counts[2].name} value={props.stats.counts[2].value} />
+            <StatisticLine text={props.stats.counts[3].name} value={props.stats.counts[3].value} />
+            <StatisticLine text={props.stats.counts[4].name} value={props.stats.counts[4].value} />
+            <StatisticLine text={props.stats.counts[5].name} value={props.stats.counts[5].value} />
+          </tbody>
+        </table>
+
       </div>
     )
   } else {
