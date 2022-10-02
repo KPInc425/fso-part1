@@ -13,7 +13,10 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
-  // console.log(votes);
+  const [mostVotesSelected, setMaxVotes] = useState(0);
+  let votesString = `This anecdote has ${votes[selected]} votes.`;
+  let maxVotesString = `Currently in the lead with ${votes[mostVotesSelected]} votes.`;
+
 
   const randomSelection = () => {
     let newChoice = Math.floor(Math.random() * (anecdotes.length - 1));
@@ -25,23 +28,62 @@ const App = () => {
   }
 
   const voteForDisplayed = () => {
-    console.log(selected);
-    console.log(votes[selected]);
+    // console.log(selected);
+    // console.log(votes[selected]);
     const tmpVotes = [...votes];
     tmpVotes[selected] += 1;
     console.log(tmpVotes);
-    return setVotes(tmpVotes);
+    setVotes(tmpVotes);
+    getMostVotes(tmpVotes);
+    return 1;
+  }
 
+  const getMostVotes = (newVotes) => {
+    console.log(newVotes);
+    let tmpVotes = [...newVotes];
+    let mostVotes = {
+      index: 0,
+      votes: 0,
+    };
+    for (let i = 0; i < tmpVotes.length; i++) {
+      console.log(tmpVotes[i]);
+      if (tmpVotes[i] > mostVotes.votes) {
+        mostVotes.index = i;
+        mostVotes.votes = tmpVotes[i];
+      }
+    }
+    console.log(mostVotes);
+    return setMaxVotes(mostVotes.index);
   }
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>This anecdote has {votes[selected]} votes.</p>
+      <DisplayHeader text={"Anecdote of the day..."} />
+      <DisplayContent text={anecdotes[selected]} />
+      <DisplayContent text={votesString} />
       <div>
         <Button handleClick={voteForDisplayed} label="Vote" />
         <Button handleClick={randomSelection} label="Next Anecdote" />
       </div>
+      <DisplayHeader text={"Anecdote with the most votes..."} />
+      <DisplayContent text={anecdotes[mostVotesSelected]} />
+      <DisplayContent text={maxVotesString} />
+    </div>
+  )
+}
+
+const DisplayHeader = ({ text }) => {
+  return (
+    <div>
+      <h1>{ text }</h1>
+    </div>
+  )
+}
+
+const DisplayContent = ({ text }) => {
+  return (
+    <div>
+      <p>{ text }</p>
     </div>
   )
 }
