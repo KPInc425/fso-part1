@@ -12,22 +12,43 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
+  // console.log(votes);
 
   const randomSelection = () => {
-    return setSelected(Math.floor(Math.random() * (anecdotes.length - 1)));
+    let newChoice = Math.floor(Math.random() * (anecdotes.length - 1));
+    // Make sure same anecdote isn't selected
+    while (newChoice === selected) {
+      newChoice = Math.floor(Math.random() * (anecdotes.length - 1));
+    }
+    return setSelected(newChoice);
+  }
+
+  const voteForDisplayed = () => {
+    console.log(selected);
+    console.log(votes[selected]);
+    const tmpVotes = [...votes];
+    tmpVotes[selected] += 1;
+    console.log(tmpVotes);
+    return setVotes(tmpVotes);
+
   }
 
   return (
     <div>
-      {anecdotes[selected]}
-      <Button handleClick={randomSelection} label="Next Anecdote" />
+      <p>{anecdotes[selected]}</p>
+      <p>This anecdote has {votes[selected]} votes.</p>
+      <div>
+        <Button handleClick={voteForDisplayed} label="Vote" />
+        <Button handleClick={randomSelection} label="Next Anecdote" />
+      </div>
     </div>
   )
 }
 
 const Button = ({ handleClick, label }) => {
   return (
-    <div>
+    <div style={{display: "inline"}}>
       <button onClick={handleClick}>
         {label}
       </button>
